@@ -1,21 +1,22 @@
 import Button from "./Button";
 import { filterTodos } from ".";
 import { useContext } from "react";
-import { ACTION_TYPES, TodoContext } from "../../context/TodoContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setTodoStatus } from "../../features/todos/todoSlice";
 
 const TodoFilters = () => {
-	const [state, dispatch] = useContext(TodoContext);
+	const dispatch = useDispatch();
+
 	const handleFilterClick = (status) => {
-		dispatch({type:ACTION_TYPES.SET_TODO_STATUS,payload:status})
+		dispatch(setTodoStatus(status));
 	};
 
-	const { todoItems } = state;
+	const { todoItems } = useSelector((state)=>state.todos);
 
-	const allTodoList = todoItems.length
-	const completedTodos = filterTodos(todoItems, 'completed')?.length;
+	const allTodoList = todoItems.length;
+	const completedTodos = filterTodos(todoItems, "completed")?.length;
 	const pendingTodos = filterTodos(todoItems, "pending")?.length;
-	
-	
+
 	return (
 		<>
 			<div className="flex  mt-3 gap-x-2 items-center">
@@ -41,7 +42,6 @@ const TodoFilters = () => {
 					Pending{`(${pendingTodos})`}
 				</Button>
 			</div>
-			
 		</>
 	);
 };

@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import TodoForm from "./TodoForm";
+import TodoForm from "./Todoform";
 import TodoItems from "./TodoItems";
 import TodoFilters from "./Todofilters";
-import { ACTION_TYPES, TodoContext } from "../../context/TodoContext";
+import { ACTION_TYPES} from "../../context/TodoContext";
+import { setTodoItems } from "../../features/todos/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const filterTodos = (todos, status) => {
 	let alltodos = [];
@@ -24,18 +26,15 @@ export const filterTodos = (todos, status) => {
 };
 
 const TodoContainer = () => {
-	const [state, dispatch] = useContext(TodoContext);
-
-	const { todoItems } = state;
-
-	// const filtered_todos = filterTodos(todoItems, todoStatus);
+	const dispatch = useDispatch();
+	const { todoItems } = useSelector((state) => state.todos);
 
 	useEffect(() => {
 		if (localStorage.getItem("todos")) {
 			const localTodos = JSON.parse(localStorage.getItem("todos"));
-			dispatch({ type: ACTION_TYPES.SET_TODO_ITEMS, payload: localTodos });
+			dispatch(setTodoItems(localTodos));
 		}
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (todoItems.length > 0) {

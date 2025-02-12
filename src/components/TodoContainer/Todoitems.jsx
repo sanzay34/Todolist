@@ -1,44 +1,44 @@
-import { useContext } from "react";
 import TodoItem from "./TodoItem";
-import { ACTION_TYPES, TodoContext } from "../../context/TodoContext";
+
 import { filterTodos } from ".";
 import Input from "./Input";
-const TodoItems = () => {
-	const [state, dispatch] = useContext(TodoContext);
+import {
+	deleteTodoItems,
+	editTodoItems,
+	setCurrentIndex,
+	setEditMode,
+	setTodoItems,
+	setTodoText,
+} from "../../features/todos/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-	const { todoItems: alltodos=[], todoStatus, currentEditIndex } = state;
+const TodoItems = () => {
+	const dispatch = useDispatch();
+
+	const {
+		todoItems: alltodos,
+		todoStatus,
+		currentEditIndex,
+	} = useSelector((state) => state.todos);
 
 	const deleteTodos = (todoId) => {
-		const todos = alltodos.filter((item) => item.id !== todoId);
-		dispatch({ type: ACTION_TYPES.SET_TODO_ITEMS, payload: todos });
-
-		// setTodoItems(todos);
+		dispatch(deleteTodoItems(todoId));
 	};
 
 	const editTodos = (todoId) => {
 		const todo = alltodos.find((item) => item.id === todoId);
-		dispatch({ type: ACTION_TYPES.SET_TODO_TEXT, payload: todo.text });
-		dispatch({ type: ACTION_TYPES.SET_EDIT_MODE, payload: true });
-		dispatch({ type: ACTION_TYPES.SET_CURRENT_EDIT_INDEX, payload: todoId });
+
+		dispatch(setTodoText(todo.text));
+		dispatch(setEditMode(true));
+		dispatch(setCurrentIndex(todoId));
 	};
 
 	const changeTodoStatus = (todoId, checked) => {
-		const updated_todos = alltodos.map((item) => {
-			if (item.id === todoId) {
-				return {
-					...item,
-					completed: checked,
-				};
-			}
-
-			return item;
-		});
-
-		// setTodoItems(updated_todos);
-		dispatch({ type: ACTION_TYPES.SET_TODO_ITEMS, payload: updated_todos });
+		dispatch(editTodoItems({ id: todoId, completed: checked }));
 	};
 
 	const filtered_todos = filterTodos(alltodos, todoStatus);
+
 	const handleCheckAllChange = (e) => {
 		const changed_status_todos = alltodos.map((item) => {
 			return {
@@ -46,12 +46,12 @@ const TodoItems = () => {
 				completed: e.target.checked,
 			};
 		});
-		dispatch({
-			type: ACTION_TYPES.SET_TODO_ITEMS,
-			payload: changed_status_todos,
-		});
+
+		dispatch(setTodoItems(changed_status_todos));
 	};
-	const is_checked_all=filtered_todos.every((item)=>item.completed)
+
+	//array functions (every)
+	const is_all_checked = filtered_todos.every((item) => item.completed);
 	return (
 		<div className="flex flex-col gap-2 mt-4">
 			{filtered_todos.length > 0 && (
@@ -61,7 +61,7 @@ const TodoItems = () => {
 				>
 					<div>
 						<Input
-							checked={is_checked_all}
+							checked={is_all_checked}
 							onChange={handleCheckAllChange}
 							inputStyles="w-[25px] h-[25px]"
 							type="checkbox"

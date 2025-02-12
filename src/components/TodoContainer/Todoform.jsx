@@ -3,34 +3,34 @@ import Button from "./Button";
 import Input from "./Input";
 import { ACTION_TYPES, TodoContext } from "../../context/TodoContext";
 
-const TodoForm = () => {
-	const [state, dispatch] = useContext(TodoContext);
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addTodoItems,
+	editTodoItems,
+	setCurrentIndex,
+	setEditMode,
+	setTodoText,
+} from "../../features/todos/todoSlice";
 
-	const { todoText, isEditMode, currentEditIndex, todoItems } = state;
+const TodoForm = () => {
+	const { isEditMode, todoText, currentEditIndex } = useSelector(
+		(state) => state.todos
+	);
+	const dispatch = useDispatch();
 
 	const handleTodoTextChange = (e) => {
 		if (e.target.value === "") {
-			dispatch({ type: ACTION_TYPES.SET_EDIT_MODE, payload: false });
-			dispatch({ type: ACTION_TYPES.SET_CURRENT_EDIT_INDEX, payload: null });
+			dispatch(setEditMode(false));
+			dispatch(setCurrentIndex(null));
 		}
 
-		dispatch({ type: ACTION_TYPES.SET_TODO_TEXT, payload: e.target.value });
+		dispatch(setTodoText(e.target.value));
 	};
 
 	const handleAddTodo = () => {
 		if (isEditMode) {
-			const edited_todos = todoItems.map((item, index) => {
-				if (item.id === currentEditIndex) {
-					const updated_todos = { ...item, text: todoText };
-					return updated_todos;
-				}
-				return item;
-			});
-
-			dispatch({ type: ACTION_TYPES.SET_TODO_ITEMS, payload: edited_todos });
-			dispatch({ type: ACTION_TYPES.SET_EDIT_MODE, payload: false });
-
-			// setIsEditMode(false);
+			dispatch(editTodoItems({ id: currentEditIndex, text: todoText }));
+			dispatch(setEditMode(false));
 		} else {
 			if (todoText.length > 0) {
 				const newTodo = {
@@ -39,16 +39,12 @@ const TodoForm = () => {
 					completed: false,
 				};
 
-				dispatch({
-					type: ACTION_TYPES.SET_TODO_ITEMS,
-					payload: [...todoItems, newTodo],
-				});
+				dispatch(addTodoItems(newTodo));
 			}
 		}
-		// setTodoText("");
 
-		dispatch({ type: ACTION_TYPES.SET_TODO_TEXT, payload: "" });
-		dispatch({ type: ACTION_TYPES.SET_CURRENT_EDIT_INDEX, payload: null });
+		dispatch(setTodoText(""));
+		dispatch(setCurrentIndex(null));
 	};
 
 	return (
