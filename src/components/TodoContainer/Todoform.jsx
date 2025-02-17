@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import Button from "./Button";
-import Input from "./Input";
+import Input from './Input'
 import { ACTION_TYPES, TodoContext } from "../../context/TodoContext";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addTodoItems,
@@ -17,7 +16,7 @@ const TodoForm = () => {
 		(state) => state.todos
 	);
 	const dispatch = useDispatch();
-
+	const inputRef = useRef(null);
 	const handleTodoTextChange = (e) => {
 		if (e.target.value === "") {
 			dispatch(setEditMode(false));
@@ -51,6 +50,7 @@ const TodoForm = () => {
 		<div className="flex gap-1 items-center">
 			<div className="flex-1">
 				<Input
+					ref={inputRef}
 					onEnterPress={handleAddTodo}
 					onChange={handleTodoTextChange}
 					value={todoText}

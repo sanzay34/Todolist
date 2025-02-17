@@ -1,16 +1,21 @@
-const Input = ({
-	type = "text",
-	placeholder = "",
-	label = "",
-	containerStyle = "",
-	inputStyles = "",
-	value,
-	name = "",
-	onChange,
-	required = false,
-	onEnterPress,
-	checked = false,
-}) => {
+import { forwardRef } from "react";
+const Input = forwardRef((
+	{
+		type = "text",
+		placeholder = "",
+		label = "",
+		containerStyle = "",
+		inputStyles = "",
+		value,
+		name = "",
+		onChange,
+		required = false,
+		onEnterPress,
+		checked = false,
+		onBlur,
+	},
+	ref
+) => {
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter") {
 			onEnterPress && onEnterPress();
@@ -26,6 +31,7 @@ const Input = ({
 			)}
 
 			<input
+				ref={ref}
 				onKeyDown={handleKeyDown}
 				checked={checked}
 				onChange={onChange}
@@ -34,9 +40,12 @@ const Input = ({
 				name={name}
 				className={`w-full px-[4px] py-[6px] border cursor-pointer border-black rounded-md ${inputStyles}`}
 				type={type}
+				onBlur={onBlur}
 			/>
 		</div>
+	)
+}
 	);
-};
+
 
 export default Input;

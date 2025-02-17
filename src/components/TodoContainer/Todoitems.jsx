@@ -1,6 +1,6 @@
 import TodoItem from "./TodoItem";
-
-import { filterTodos } from ".";
+import { useRef, useEffect } from "react";
+import { filterTodos } from "./Index";
 import Input from "./Input";
 import {
 	deleteTodoItems,
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const TodoItems = () => {
 	const dispatch = useDispatch();
-
+	const inputRef = useRef(null);
 	const {
 		todoItems: alltodos,
 		todoStatus,
@@ -27,10 +27,12 @@ const TodoItems = () => {
 
 	const editTodos = (todoId) => {
 		const todo = alltodos.find((item) => item.id === todoId);
-
 		dispatch(setTodoText(todo.text));
 		dispatch(setEditMode(true));
 		dispatch(setCurrentIndex(todoId));
+		useEffect(() => {
+			inputRef.current?.focus();
+		}, []);
 	};
 
 	const changeTodoStatus = (todoId, checked) => {
@@ -56,7 +58,7 @@ const TodoItems = () => {
 		<div className="flex flex-col gap-2 mt-4">
 			{filtered_todos.length > 0 && (
 				<div
-					className={`flex  items-center mt-1 gap-x-2 rounded-xl px-3 py-1 hover:bg-blue-100 cursor-pointer border border-slate-300 
+					className={`flex  items-center mt-1 gap-x-2 rounded-xl px-3 py-1 hover:bg-blue-100 cursor-pointer border border-black 
 				}`}
 				>
 					<div>

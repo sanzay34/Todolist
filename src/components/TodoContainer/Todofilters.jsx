@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { filterTodos } from ".";
+import { filterTodos } from "./Index";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTodoStatus } from "../../features/todos/todoSlice";
@@ -11,7 +11,7 @@ const TodoFilters = () => {
 		dispatch(setTodoStatus(status));
 	};
 
-	const { todoItems } = useSelector((state)=>state.todos);
+	const { todoItems } = useSelector((state) => state.todos);
 
 	const allTodoList = todoItems.length;
 	const completedTodos = filterTodos(todoItems, "completed")?.length;
