@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { filterTodos } from "./Index";
+import { filterTodos } from ".";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTodoStatus } from "../../features/todos/todoSlice";

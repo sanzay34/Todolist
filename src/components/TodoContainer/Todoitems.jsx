@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import { useRef, useEffect } from "react";
 import { filterTodos } from ".";
-import Input from "./Input";
+import Input from "./input";
 import {
 	deleteTodoItems,
 	editTodoItems,
