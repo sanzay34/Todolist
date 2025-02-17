@@ -1,7 +1,7 @@
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoContainer/TodoItem";
 import { useRef, useEffect } from "react";
-import { filterTodos } from ".";
-import Input from "./input";
+import { filterTodos } from "./TodoContainer";
+import Input from "./TodoContainer/input";
 import {
 	deleteTodoItems,
 	editTodoItems,
@@ -9,7 +9,7 @@ import {
 	setEditMode,
 	setTodoItems,
 	setTodoText,
-} from "../../features/todos/todoSlice";
+} from "../features/todos/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const TodoItems = () => {
