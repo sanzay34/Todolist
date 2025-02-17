@@ -1,4 +1,4 @@
-import TodoItem from "./TodoContainer/TodoItem";
+import TodoItem from "./TodoItem";
 import { useRef, useEffect } from "react";
 import { filterTodos } from "./TodoContainer";
 import Input from "./TodoContainer/input";
