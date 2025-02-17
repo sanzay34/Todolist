@@ -1,4 +1,4 @@
-import TodoContainer from "./components/TodoContainer/Index";
+import TodoContainer from "./components/TodoContainer";
 
 // const App = () => {
 //   return (
