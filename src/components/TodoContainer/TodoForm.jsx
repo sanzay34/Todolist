@@ -11,7 +11,7 @@ import {
 	setTodoText,
 } from "../../features/todos/todoSlice";
 
-const TodoForm = () => {
+const Todoform = () => {
 	const { isEditMode, todoText, currentEditIndex } = useSelector(
 		(state) => state.todos
 	);
@@ -75,4 +75,4 @@ const TodoForm = () => {
 	);
 };
 
-export default TodoForm;
+export default Todoform;
