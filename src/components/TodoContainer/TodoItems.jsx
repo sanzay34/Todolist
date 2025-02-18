@@ -14,7 +14,7 @@ import {
 } from "../../features/todos/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const TodoItems = () => {
+const Todoitems = () => {
 	const dispatch = useDispatch();
 	const inputRef = useRef(null);
 	const {
@@ -90,4 +90,4 @@ const TodoItems = () => {
 	);
 };
 
-export default TodoItems;
+export default Todoitems;
