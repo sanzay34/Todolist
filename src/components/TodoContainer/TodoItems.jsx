@@ -1,15 +1,17 @@
 import TodoItem from "./TodoItem";
 import { useRef, useEffect } from "react";
-import { filterTodos } from "./TodoContainer";
-import Input from "./TodoContainer/input";
+import { filterTodos } from ".";
+import Input from "./input";
 import {
 	deleteTodoItems,
-	editTodoItems,
-	setCurrentIndex,
-	setEditMode,
-	setTodoItems,
 	setTodoText,
-} from "../features/todos/todoSlice";
+	setTodoStatus,
+	setEditMode,
+	setCurrentIndex,
+	addTodoItems,
+	editTodoItems,
+	setTodoItems,
+} from "../../features/todos/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const TodoItems = () => {

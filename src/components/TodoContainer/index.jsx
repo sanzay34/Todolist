@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import TodoForm from "./Todoform";
-import TodoItems from "../TodoItems";
+import TodoItems from "./Todoitems";
 import TodoFilters from "./Todofilters";
 import { ACTION_TYPES } from "../../context/TodoContext";
 import { setTodoItems } from "../../features/todos/todoSlice";
