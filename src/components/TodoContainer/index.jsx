@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import TodoForm from "./Todoform";
+import Todoform from "./Todoform";
 import TodoItems from "./Todoitems";
 import TodoFilters from "./TodoFilters";
 import { setTodoItems } from "../../features/todos/todoSlice";
@@ -61,7 +61,7 @@ const TodoContainer = () => {
 
 	return (
 		<div className="w-full px-5 lg:p-0 mx-auto lg:w-[500px] min-h-screen">
-			<TodoForm />
+			<Todoform />
 
 			<TodoFilters />
 
