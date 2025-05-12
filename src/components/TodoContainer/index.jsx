@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Todoform from "./Todoform";
+import Todoform from "./TodoForm";
 import TodoItems from "./Todoitems";
 import TodoFilters from "./TodoFilters";
 import { setTodoItems } from "../../features/todos/todoSlice";
