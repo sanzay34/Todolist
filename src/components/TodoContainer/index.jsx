@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Todoform from "./TodoForm";
-import TodoItems from "./Todoitems";
+import TodoItems from "./TodoItem";
 import TodoFilters from "./TodoFilters";
 import { setTodoItems } from "../../features/todos/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
